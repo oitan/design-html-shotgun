@@ -2,6 +2,8 @@
 
 A Claude Code skill that generates **multiple full-fidelity static HTML mockups** for a screen and serves them through a tabbed iframe board with per-variant scroll memory.
 
+![Design Shotgun board — 4 variants with sticky tab bar](example/screenshot.png)
+
 Each variant is a standalone HTML page styled with your project's existing CSS tokens. The framework — sticky tab bar, iframe slot, and scroll-position memory — is reused across sessions and ships once with the skill.
 
 ## Why this exists
