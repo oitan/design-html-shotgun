@@ -1,6 +1,6 @@
 # design-html-shotgun
 
-A Claude Code skill that generates **multiple full-fidelity static HTML mockups** for a screen and serves them through a tabbed iframe board with per-variant scroll memory.
+Claude Code skill for generating design variants and comparing them side-by-side.
 
 ![Design Shotgun board — 4 variants with sticky tab bar](example/screenshot.png)
 
