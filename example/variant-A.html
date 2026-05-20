@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Variant A — Минимал</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<style>
+  .va-divider { border: 0; height: 1px; background: var(--border); margin: 28px 0 16px; }
+  .va-divider-label { color: var(--muted); font-size: 13px; font-weight: 500; margin-bottom: 12px; }
+  .va-untracked-row td { color: #555; }
+  .va-untracked-row .plain { color: #999; }
+  .va-track-btn {
+    background: #fff; border: 1px solid var(--accent); color: var(--accent);
+    padding: 5px 12px; border-radius: 999px; font-weight: 600; font-size: 12px; cursor: pointer;
+  }
+  .va-track-btn:hover { background: var(--accent-soft); }
+  .va-preview-banner {
+    background: var(--accent-soft); border: 1px solid var(--accent);
+    border-radius: var(--radius); padding: 14px 18px; margin-bottom: 18px;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  }
+  .va-preview-banner .text { flex: 1; min-width: 280px; }
+  .va-preview-banner h3 { color: var(--accent-strong); font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .va-preview-banner p { color: #444; font-size: 13px; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<div class="frame">
+  <div class="frame-label">Variant A — Минимал · экран 1/2: /campaigns «Активные»</div>
+  <div class="page">
+    <div class="header"><h1>Отслеживаемые кампании</h1></div>
+    <nav class="tabs">
+      <button class="tab tabActive">Кампании</button>
+      <button class="tab">История изменений</button>
+    </nav>
+    <div class="subTabs">
+      <button class="subTab subTabActive">Активные</button>
+      <button class="subTab">Неактивные отслеживаемые (1)</button>
+    </div>
+    <div class="toolbar">
+      <span class="pill">📅 12 мая – 19 мая 2026</span>
+      <span class="pill">Глобальный ДРР: <strong>15%</strong> <span class="pencil">✎</span></span>
+    </div>
+    <table class="t">
+      <thead><tr>
+        <th>Название</th><th>Целевой ДРР</th><th>Дневной бюджет</th>
+        <th>Просмотры</th><th>Клики</th><th>Расходы</th><th>Факт. ДРР</th><th></th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="tdName"><a>Электроника · Лето 2026</a> <span class="badge badgeEnabled">Активная</span></div></td>
+          <td><button class="editable">12% <span class="pencil">✎</span></button></td>
+          <td><button class="editable">25 000 ₸ <span class="pencil">✎</span></button></td>
+          <td>14 280</td><td>312</td><td>18 940 ₸</td><td>11%</td>
+          <td><button class="btn-icon" title="Перестать отслеживать">✕</button></td>
+        </tr>
+        <tr>
+          <td><div class="tdName"><a>Бытовая техника</a> <span class="badge badgeEnabled">Активная</span></div></td>
+          <td><button class="editable">— <span class="pencil">✎</span></button></td>
+          <td><button class="editable">15 000 ₸ <span class="pencil">✎</span></button></td>
+          <td>9 412</td><td>198</td><td>11 220 ₸</td><td>14%</td>
+          <td><button class="btn-icon" title="Перестать отслеживать">✕</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <hr class="va-divider" />
+    <div class="va-divider-label">Другие активные кампании Kaspi</div>
+    <table class="t">
+      <thead><tr>
+        <th>Название</th><th>Целевой ДРР</th><th>Дневной бюджет</th>
+        <th>Просмотры</th><th>Клики</th><th>Расходы</th><th>Факт. ДРР</th><th></th>
+      </tr></thead>
+      <tbody>
+        <tr class="va-untracked-row">
+          <td><div class="tdName"><a>Сад и огород</a> <span class="badge badgeEnabled">Активная</span></div></td>
+          <td><span class="plain">—</span></td>
+          <td><span class="plain">8 000 ₸</span></td>
+          <td>3 120</td><td>62</td><td>4 100 ₸</td><td>9%</td>
+          <td><button class="va-track-btn">Отслеживать</button></td>
+        </tr>
+        <tr class="va-untracked-row">
+          <td><div class="tdName"><a>Спорт · Туризм</a> <span class="badge badgeEnabled">Активная</span></div></td>
+          <td><span class="plain">—</span></td>
+          <td><span class="plain">12 000 ₸</span></td>
+          <td>5 880</td><td>140</td><td>7 350 ₸</td><td>12%</td>
+          <td><button class="va-track-btn">Отслеживать</button></td>
+        </tr>
+        <tr class="va-untracked-row">
+          <td><div class="tdName"><a>Дом · Интерьер</a> <span class="badge badgeEnabled">Активная</span></div></td>
+          <td><span class="plain">—</span></td>
+          <td><span class="plain">10 000 ₸</span></td>
+          <td>2 740</td><td>54</td><td>3 980 ₸</td><td>10%</td>
+          <td><button class="va-track-btn">Отслеживать</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="frame">
+  <div class="frame-label">Variant A — экран 2/2: /campaigns/preview/12345</div>
+  <div class="page">
+    <div class="va-preview-banner">
+      <div class="text">
+        <h3>Кампания не отслеживается</h3>
+        <p>Начните отслеживать, чтобы получить историю изменений ставок, накопленную статистику, выдачу рекомендаций и автоматическое управление ставкой.</p>
+      </div>
+      <button class="btn btn-primary">Начать отслеживать</button>
+    </div>
+    <div class="preview-meta">
+      <h1>Сад и огород</h1>
+      <span class="badge badgeEnabled">Активная</span>
+    </div>
+    <div class="overview-tiles">
+      <div class="tile"><div class="label">Просмотры</div><div class="value">3 120</div></div>
+      <div class="tile"><div class="label">Клики</div><div class="value">62</div></div>
+      <div class="tile"><div class="label">Расходы</div><div class="value">4 100 ₸</div></div>
+      <div class="tile"><div class="label">GMV</div><div class="value">42 800 ₸</div></div>
+    </div>
+    <table class="t products-table">
+      <thead><tr><th>Товар</th><th>Ставка</th><th>Просмотры</th><th>Клики</th><th>CTR</th><th>Расходы</th></tr></thead>
+      <tbody>
+        <tr><td class="prod"><div class="thumb"></div><div class="prod-name">Газонокосилка электрическая GreenPro 1800Вт</div></td><td>45 ₸</td><td>1 240</td><td>22</td><td>1.8%</td><td>990 ₸</td></tr>
+        <tr><td class="prod"><div class="thumb"></div><div class="prod-name">Секатор садовый Bahco PX-S2</div></td><td>30 ₸</td><td>820</td><td>18</td><td>2.2%</td><td>540 ₸</td></tr>
+        <tr><td class="prod"><div class="thumb"></div><div class="prod-name">Удобрение универсальное «Зелёный сад» 5 кг</div></td><td>25 ₸</td><td>1 060</td><td>22</td><td>2.1%</td><td>550 ₸</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
