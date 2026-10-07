@@ -17,22 +17,25 @@ When you're exploring UI directions, the cycle is:
 
 This skill solves all four. One board, four tabs, scroll memory baked in.
 
-For interactive React/Svelte previews use `/design-shotgun`. For finalized production HTML use `/design-html`. This skill is for the **rapid static exploration step** in between.
+For AI-image variants use gstack's `/design-shotgun`; for finalized production HTML use gstack's `/design-html`. This skill is for the **rapid static exploration step** before them. The handoff needs [gstack](https://github.com/garrytan/gstack) installed; the skill checks and offers the install command if it's missing.
 
 ## Install
 
-Clone into `~/.claude/skills/`:
+With the [`skills`](https://github.com/vercel-labs/skills) CLI, globally for Claude Code:
 
 ```bash
-cd ~/.claude/skills
-git clone https://github.com/oitan/design-html-shotgun.git
+npx skills add oitan/design-html-shotgun -g -a claude-code -y
 ```
 
-Restart Claude Code so it picks up the new skill, or check with:
+Restart Claude Code so it picks up the new skill.
+
+## Update
 
 ```bash
-ls ~/.claude/skills/design-html-shotgun/SKILL.md
+npx skills update design-html-shotgun -g
 ```
+
+Pulls the latest push of this repo. To change the skill: edit here, push, run the update on each machine.
 
 ## Use
 
@@ -48,11 +51,15 @@ Or natural language:
 
 The skill will:
 
-1. Detect your project's CSS tokens (reads `app/globals.css`, `globals.css`, `styles/globals.css`, or asks).
-2. Ask scope: which screen, how many variants, language.
-3. Brainstorm N distinct concepts and let you approve them.
-4. Generate `~/.gstack/projects/$SLUG/designs/$NAME-$DATE/` with one `variant-X.html` per concept, a `manifest.js`, and a copy of the framework.
-5. Open the board in your browser.
+1. Read `DESIGN.md` / `PRODUCT.md` and your CSS tokens (`app/globals.css`, `globals.css`, `styles/globals.css`, Tailwind config), or ask.
+2. Ask scope: screen, who and what job, edge cases, how many variants, language.
+3. Brainstorm N distinct concepts and let you approve them (two rounds at most).
+4. Generate `~/.design-shotgun/$SLUG/$NAME-$DATE/` with one `variant-X.html` per concept, a `manifest.js`, and a copy of the framework. Files are never overwritten: revisions get new ids (`A2`).
+5. Serve the board on `127.0.0.1` and open it in your browser.
+6. Check each variant at 375 / 768 / 1440 if a browser automation tool is available.
+7. Iterate with targeted edits, then record the winner in `approved.json`.
+
+Every variant follows [`references/design-rules.md`](references/design-rules.md): anti-convergence, an AI-slop blacklist, UX behavior rules, edge cases, a craft baseline.
 
 ## How the board works
 
@@ -101,6 +108,8 @@ design-html-shotgun/
 ├── SKILL.md                  Claude Code skill instructions
 ├── README.md                 this file
 ├── LICENSE                   MIT
+├── references/
+│   └── design-rules.md       rules every variant follows
 └── framework/
     ├── framework.html        sticky tab bar + iframe slot
     ├── framework.css         minimal project-agnostic styling
@@ -111,7 +120,7 @@ The `framework/` dir is copied into each session output dir, so each design boar
 
 ## Constraints
 
-- Browser must allow same-origin iframe access for `file://` URLs in the same directory (Chrome, Safari, Firefox all do by default).
+- Serve the board over HTTP (the skill does: `python3 -m http.server`). Chrome and Firefox give every `file://` page its own origin, so scroll memory can't read the iframe there; the board says so when opened as a file.
 - Variant pages should be self-contained: inline `<style>`, no external JS bundles. Google Fonts `<link>` is fine.
 - Scroll memory uses `sessionStorage`, not `localStorage` — it survives reloads in the same tab but not browser restarts. That's intentional: each shotgun is a focused session.
 
@@ -121,4 +130,4 @@ A real four-variant shotgun for a marketplace campaigns page lives in `example/`
 
 ## License
 
-MIT — see `LICENSE`.
+MIT — see `LICENSE`. `references/design-rules.md` is adapted from [gstack](https://github.com/garrytan/gstack) (MIT, Copyright (c) 2026 Garry Tan).

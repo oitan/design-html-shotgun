@@ -23,6 +23,13 @@
   if (subEl && M.subtitle) subEl.textContent = M.subtitle;
   if (M.title) document.title = M.title;
 
+  // Chrome and Firefox give every file:// page its own origin, so the
+  // iframe's scroll position can't be read. Say so instead of failing silently.
+  if (location.protocol === "file:" && subEl) {
+    subEl.textContent = (M.subtitle ? M.subtitle + " · " : "") +
+      "opened as a file: scroll memory may not work — serve the folder over http";
+  }
+
   M.variants.forEach(function (v) {
     var b = document.createElement("button");
     b.type = "button";
@@ -42,17 +49,21 @@
   var stored = sessionStorage.getItem(VK);
   var current = variantById(stored) ? stored : M.variants[0].id;
 
-  function saveScroll() {
+  // Saves the scroll of window w under variant id. Both are passed in, not
+  // read from `current`: the old variant's beforeunload fires after `current`
+  // already points at the new tab, and would file its scroll under the wrong id.
+  function saveScroll(id, w) {
     try {
-      var w = frameEl.contentWindow;
       if (w && w.document) {
         var y = w.scrollY || w.document.documentElement.scrollTop || 0;
-        sessionStorage.setItem(SK_PREFIX + current, String(y));
+        sessionStorage.setItem(SK_PREFIX + id, String(y));
       }
     } catch (_) {
       // cross-origin or not loaded yet
     }
   }
+
+  function saveCurrent() { saveScroll(current, frameEl.contentWindow); }
 
   function restoreScroll() {
     try {
@@ -66,13 +77,15 @@
     try {
       var w = frameEl.contentWindow;
       if (!w) return;
-      w.addEventListener("scroll", saveScroll, { passive: true });
-      w.addEventListener("beforeunload", saveScroll);
+      var id = current;
+      var save = function () { saveScroll(id, w); };
+      w.addEventListener("scroll", save, { passive: true });
+      w.addEventListener("beforeunload", save);
     } catch (_) {}
   }
 
   function activate(id, isInitial) {
-    if (!isInitial) saveScroll();
+    if (!isInitial) saveCurrent();
     current = id;
     sessionStorage.setItem(VK, id);
     var btns = tabsEl.querySelectorAll(".board-tab");
@@ -96,7 +109,7 @@
     activate(t.dataset.id, false);
   });
 
-  window.addEventListener("beforeunload", saveScroll);
+  window.addEventListener("beforeunload", saveCurrent);
 
   activate(current, true);
 })();
